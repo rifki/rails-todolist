@@ -12,3 +12,4 @@ Todo list App using Ruby on Rails and MySQL
   * Ruby Version: 2.6.3
   * Rails Version: 5.2
   * DB Name: todolistapp_dev
+  * Web: https://shrouded-fjord-38780.herokuapp.com
