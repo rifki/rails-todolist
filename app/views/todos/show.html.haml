@@ -1,0 +1,44 @@
+.container
+  %h1
+    Detail #{@todo.name}
+  = link_to '<< Back', todos_path
+  .table-responsive-md
+    %table.table.table-striped
+      %tr
+        %th Name
+        %td= @todo.name
+      %tr
+        %th Description
+        %td= @todo.description
+      %tr
+        %th Due Date
+        %td
+          = @todo.due_date.strftime("%Y-%m-%d")
+      %tr
+        %th Priority
+        %td
+          - if @todo.priority == 1
+            High
+          - elsif @todo.priority == 2
+            Medium
+          - elsif @todo.priority == 3
+            Low
+          - else
+            Undefined
+      %tr
+        %th Completed
+        %td
+          - if @todo.is_completed
+            Yes
+          - else
+            No
+      %tr
+        %th Completed Date
+        %td
+          = @todo.completed_at ? @todo.completed_at.strftime("%Y-%m-%d") : ''
+      %tr
+        %th Created
+        %td= @todo.created_at
+      %tr
+        %th Updated
+        %td= @todo.updated_at

@@ -1,0 +1,40 @@
+.container
+  %h1 To Do List
+  %p= link_to 'Create', new_todo_path, class: 'btn btn-primary'
+  .table-responsive-md
+    %table.table.table-striped.table-bordered#todolisting
+      %thead
+        %tr
+          %th Name
+          %th Priority
+          %th Due Date
+          %th Is Complete
+          %th #
+
+      %tbody
+        - @todos.each do |todo|
+          %tr
+            %td= todo.name
+            %td{'data-order' => todo.priority}
+              - if todo.priority == 1
+                High
+              - elsif todo.priority == 2
+                Medium
+              - elsif todo.priority == 3
+                Low
+              - else
+                Undefined
+            %td= todo.due_date.strftime("%Y-%m-%d")
+            %td{'data-order' => todo.is_completed}
+              - if todo.is_completed
+                Yes
+              - else
+                No
+            %td
+              - if todo.is_completed
+                = link_to 'Uncompleted', ascompleted_path(:id=>todo.id, :status=>false), :class => 'btn btn-light btn-sm'
+              - else
+                = link_to 'Completed', ascompleted_path(:id=>todo.id, :status=>true), :class=>'btn btn-light btn-sm'
+              = link_to 'Edit', edit_todo_path(todo), :class=>'btn btn-light btn-sm'
+              = link_to 'Show', todo_path(todo), :class=>'btn btn-light btn-sm'
+              = link_to 'Delete', todo_path(todo), method: :delete, data: { confirm: 'Are you sure to delete?' }, :class=>'btn btn-danger btn-sm'

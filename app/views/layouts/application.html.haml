@@ -1,0 +1,40 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title To Do List App
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    %link{:crossorigin => "anonymous", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css", :integrity => "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm", :rel => "stylesheet"}/
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    .container
+      %nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+        %a.navbar-brand{:href => "#"} Todo List App
+        %button.navbar-toggler{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarNav", "data-toggle" => "collapse", :type => "button"}
+          %span.navbar-toggler-icon
+        #navbarNav.collapse.navbar-collapse
+          %ul.navbar-nav
+            %li.nav-item.active
+              %a.nav-link{:href => "/"}
+                Home
+                %span.sr-only (current)
+            - if user_signed_in?
+              %li.nav-item
+                %a.nav-link{:href => "/users/sign_out"} Logout
+              %li.nav-item{:style => "float:left; margin-left:30px"}
+                %a.nav-link{:href => "#", :style => "color:white;"}
+                  Welcome #{current_user.email}
+      = yield
+    %script{:src => "//code.jquery.com/jquery-3.3.1.js"}
+    %script{:src => "//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"}
+    %script{:src => "//cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"}
+    %script{:crossorigin => "anonymous", :integrity => "sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q", :src => "//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"}
+    %script{:crossorigin => "anonymous", :integrity => "sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl", :src => "//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"}
+    :javascript
+      $(document).ready(function() {
+          $('#todolisting').DataTable();
+      } );
